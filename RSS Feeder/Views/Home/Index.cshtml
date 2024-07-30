@@ -1,0 +1,31 @@
+﻿@using System.Text.RegularExpressions
+@using RSS_Feeder.Settings
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        function fetchRSS() {
+            $.ajax({
+                url: '@Url.Action("FetchRSS", "RssFeeder")',
+                type: 'GET',
+                success: function(data) {
+                    $('#content').html(data);
+                },
+                error: function() {
+                    console.error("Ошибка при получении данных RSS.");
+                }
+            });
+        }
+        setInterval(fetchRSS, @SettingsOptions.RefreshRate)
+        })
+</script>
+
+<div id="content">
+    @foreach (var item in ViewBag.items)
+    {
+        <div style="border-bottom: 1px solid black">
+            <p><a href="@item.Link"><b>@item.Title</b></a></p>
+            <p>@Regex.Replace(item.Description, "(<[^>]*>)|(&\\w+)", String.Empty)</p>
+            <p>@DateTime.Parse(item.PubDate)</p>
+        </div>
+    }
+</div>

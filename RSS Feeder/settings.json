@@ -1,0 +1,8 @@
+{
+  "rssUrl": "https://habr.com/ru/rss/interesting/",
+  "refreshRate": 5000,
+  "useProxy" : false,
+  "proxyAddress" : "",
+  "proxyLogin" : "",
+  "proxyPassword" : ""
+}

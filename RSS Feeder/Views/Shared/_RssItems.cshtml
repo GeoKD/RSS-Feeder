@@ -1,0 +1,11 @@
+@using System.Text.RegularExpressions
+@model IEnumerable<Item>
+
+@foreach (var item in Model)
+{
+    <div style="border-bottom: 1px solid black">
+        <p><a href="@item.Link"><b>@item.Title</b></a></p>
+        <p>@Regex.Replace(item.Description, "(<[^>]*>)|(&\\w+)", String.Empty)</p>
+        <p>@DateTime.Parse(item.PubDate)</p>
+    </div>
+}
